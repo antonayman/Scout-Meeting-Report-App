@@ -729,11 +729,14 @@
       border-radius: 24px;
       background: linear-gradient(145deg, #edf7f3, #dceee7);
       box-shadow: inset 0 0 0 1px rgba(23, 107, 88, 0.08);
+      overflow: hidden;
     }
 
     .badge {
-      width: 66px;
-      height: 66px;
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      border-radius: 16px;
       filter: none;
     }
 
@@ -1024,16 +1027,7 @@
       <form id="report-form" novalidate>
         <header class="hero">
           <div class="badge-wrap">
-            <svg class="badge" viewBox="0 0 100 100" role="img" aria-label="شارة كشفية">
-              <circle cx="50" cy="50" r="46" fill="#ead7aa" stroke="currentColor" stroke-width="3" />
-              <circle cx="50" cy="50" r="39" fill="none" stroke="#b38a3e" stroke-width="2" />
-              <path
-                d="M50 16C40 28 39 39 45 48c-4-2-8-8-12-15-10 5-15 13-14 23 7-5 14-5 21 0-9 2-13 8-12 17 7-4 13-5 18-3v7h-8v7h24v-7h-8v-7c5-2 11-1 18 3 1-9-3-15-12-17 7-5 14-5 21 0 1-10-4-18-14-23-4 7-8 13-12 15 6-9 5-20-5-32Z"
-                fill="#244d3b" />
-              <path d="M33 61h34M32 65h36" fill="none" stroke="#b38a3e" stroke-width="3" stroke-linecap="round" />
-              <path d="M26 51c9 5 16 6 24 1 8 5 15 4 24-1" fill="none" stroke="#ead7aa" stroke-width="2.2"
-                stroke-linecap="round" />
-            </svg>
+            <img class="badge" src="/كشافه.jpg" alt="شعار الكشافة" />
           </div>
           <div>
             <p class="eyebrow">نموذج توثيق الاجتماع</p>
@@ -1058,11 +1052,11 @@
             <span class="field-label">القطاع <span class="required-mark">*</span></span>
             <select class="line-input" id="sector" name="sector" required>
               <option value="" selected disabled>اختر القطاع</option>
-              <option value="براعم">براعم</option>
-              <option value="أشبال">أشبال</option>
+              <option value="براعم ويرقات">براعم ويرقات</option>
+              <option value="أشبال وزهرات">أشبال وزهرات</option>
               <option value="كشافة ومرشدات">كشافة ومرشدات</option>
-              <option value="متقدم">متقدم</option>
-              <option value="جوالة">جوالة</option>
+              <option value="متقدم ومتقدمات">متقدم ومتقدمات</option>
+              <option value="جوالة ودليلات">جوالة ودليلات</option>
             </select>
           </label>
 
@@ -1241,6 +1235,11 @@
       if (payload.endTime <= payload.startTime) {
         showError("يجب أن يكون وقت نهاية الاجتماع بعد وقت البداية.");
         document.getElementById("end-time").focus();
+        return;
+      }
+
+      if (FORM_ENDPOINT === "%VITE" + "_GOOGLE_SCRIPT_URL%" || FORM_ENDPOINT.includes("REPLACE_WITH") || !FORM_ENDPOINT.startsWith("http")) {
+        showError("لم يتم إعداد رابط الإرسال بعد. يرجى إنشاء ملف .env وإضافة رابط Google Apps Script في متغير VITE_GOOGLE_SCRIPT_URL ثم إعادة تشغيل الخادم.");
         return;
       }
 
