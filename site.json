@@ -1,0 +1,10 @@
+{
+  "description": "Enables Scout leaders to digitally record meeting details and activities in Arabic with a paper-style form, ensuring easy submission and accurate record-keeping.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
